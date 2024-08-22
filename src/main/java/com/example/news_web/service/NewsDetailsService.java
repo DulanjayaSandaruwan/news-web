@@ -5,7 +5,7 @@ import com.example.news_web.repository.NewsDetailsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Set;
+import java.util.List;
 
 @Service
 public class NewsDetailsService {
@@ -13,7 +13,7 @@ public class NewsDetailsService {
     @Autowired
     private NewsDetailsRepository newsDetailsRepository;
 
-    public Set<NewsDetails> getNewsDetailsForItem(String newsItemId) {
+    public List<NewsDetails> getNewsDetailsForItem(String newsItemId) {
         return newsDetailsRepository.findByNewsItemId(newsItemId);
     }
 }

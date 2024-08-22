@@ -26,7 +26,7 @@ public class NewsItemController {
     @PostMapping("/create-item")
     public ResponseEntity<NewsItemDTO> createNews(@RequestBody NewsItemDTO newsItemDTO) {
         NewsItems newsItem = newsItemService.createNews(newsItemDTO);
-        Set<NewsDetails> newsDetails = newsDetailsService.getNewsDetailsForItem(newsItem.getId());
+        List<NewsDetails> newsDetails = newsDetailsService.getNewsDetailsForItem(newsItem.getId());
         NewsItemDTO responseDTO = NewsItemDTO.initWithCategory(newsItem, newsDetails);
         return ResponseEntity.ok(responseDTO);
     }

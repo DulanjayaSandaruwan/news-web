@@ -32,7 +32,7 @@ public class NewsItemDTO {
         return newsItemDTO;
     }
 
-    public static NewsItemDTO initWithCategory(NewsItems newsItems, Set<NewsDetails> newsDetails) {
+    public static NewsItemDTO initWithCategory(NewsItems newsItems, List<NewsDetails> newsDetails) {
         NewsItemDTO newsItemDTO = NewsItemDTO.init(newsItems);
         List<NewsCategoryDTO> categoryDTOs = newsDetails.stream()
                 .map(details -> NewsCategoryDTO.init(details.getNewsCategory()))
