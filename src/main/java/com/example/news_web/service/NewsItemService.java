@@ -1,5 +1,6 @@
 package com.example.news_web.service;
 
+import com.example.news_web.dto.FilterNewsItemDTO;
 import com.example.news_web.dto.NewsItemDTO;
 import com.example.news_web.model.NewsCategories;
 import com.example.news_web.model.NewsDetails;
@@ -12,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -50,5 +52,12 @@ public class NewsItemService {
             newsDetailsRepository.saveAll(newsDetailsSet);
         }
         return newsItem;
+    }
+
+    public List<NewsItemDTO> getNewsItemsByCategories(FilterNewsItemDTO filterDTO) {
+        List<NewsItems> newsItemsList = newsItemRepository.findByCategoryIds(filterDTO.getCategoryIds());
+        return newsItemsList.stream()
+                .map(newsItem -> NewsItemDTO.initWithCategory(newsItem, newsItem.getNewsDetails()))
+                .collect(Collectors.toList());
     }
 }

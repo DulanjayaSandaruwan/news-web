@@ -1,5 +1,6 @@
 package com.example.news_web.controller;
 
+import com.example.news_web.dto.FilterNewsItemDTO;
 import com.example.news_web.dto.NewsItemDTO;
 import com.example.news_web.model.NewsDetails;
 import com.example.news_web.model.NewsItems;
@@ -7,11 +8,9 @@ import com.example.news_web.service.NewsDetailsService;
 import com.example.news_web.service.NewsItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -30,5 +29,13 @@ public class NewsItemController {
         Set<NewsDetails> newsDetails = newsDetailsService.getNewsDetailsForItem(newsItem.getId());
         NewsItemDTO responseDTO = NewsItemDTO.initWithCategory(newsItem, newsDetails);
         return ResponseEntity.ok(responseDTO);
+    }
+
+    @GetMapping("/filter")
+    public ResponseEntity<List<NewsItemDTO>> getNewsItemsByCategories(
+            @RequestBody FilterNewsItemDTO filterDTO
+    ) {
+        List<NewsItemDTO> newsItemsByCategories = newsItemService.getNewsItemsByCategories(filterDTO);
+        return ResponseEntity.ok(newsItemsByCategories);
     }
 }
